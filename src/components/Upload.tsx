@@ -14,6 +14,7 @@ export default function FilestackUpload({ onUpload }: FilestackUploadProps) {
 
   const handleUpload = async () => {
     await client.picker({
+      accept: ['image/*'],
       onUploadDone: (res) => {
         const url = res.filesUploaded[0].url;
         setImageUrl(url);

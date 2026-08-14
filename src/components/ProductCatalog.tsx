@@ -21,7 +21,7 @@ export default async function ProductCatalog() {
     <div className="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-brand-orange selection:text-white min-h-screen">
       
       {/* PAGE HERO */}
-      <section className="bg-slate-900 relative text-white py-24 sm:py-28 overflow-hidden">
+      <section className="bg-slate-900 relative text-white py-24 sm:py-28">
         <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/10 via-transparent to-blue-500/10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <h1 className="font-heading text-4xl sm:text-5xl font-extrabold mb-4 tracking-tight">Ürün Kataloğu</h1>
@@ -108,7 +108,7 @@ export default async function ProductCatalog() {
                   <div key={product.id} className="bg-white rounded-3xl border border-slate-200/80 p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
                     <div>
                       {/* Product Image / Media */}
-                      <div className="relative bg-slate-100 rounded-2xl h-48 mb-4 overflow-hidden flex items-center justify-center">
+                      <div className="relative bg-slate-100 rounded-2xl h-48 mb-4 -flex items-center justify-center">
                         {product.image ? (
                           <img src={product.image} alt={product.title} className="object-cover h-full w-full" />
                         ) : (
@@ -139,12 +139,17 @@ export default async function ProductCatalog() {
                         </span>
                       )}
                       
-                      <Link 
+                     {/* <Link 
                         href={`/products/${product.id}`}
                         className="bg-brand-orange/10 hover:bg-brand-orange text-brand-orange hover:text-white px-4 py-2 rounded-xl text-sm font-bold transition-colors ml-auto"
                       >
                         İncele
-                      </Link>
+                      </Link> 
+                      Don't have an actual page for the products yet, but if I do this is the code. May need to change the slug
+                      */}
+                      
+
+
                     </div>
                   </div>
                 ))}

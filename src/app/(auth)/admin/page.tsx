@@ -59,7 +59,7 @@ export default async function Dashboard() {
                   <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Marka</label>
                   <input
                     name="brand"
-                    placeholder="Örn., Apple, IKEA"
+                    placeholder="Bosch, İzeltaş . . . "
                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-200 text-sm"
                   />
                 </div>
@@ -67,7 +67,7 @@ export default async function Dashboard() {
                   <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Kategori</label>
                   <input
                     name="category"
-                    placeholder="Örn., Mobilya"
+                    placeholder="Kesici Takımlar , Ölçü . . ."
                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-200 text-sm"
                   />
                 </div>

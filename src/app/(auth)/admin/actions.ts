@@ -13,13 +13,16 @@ export async function addTask(formData: FormData) {
   const title = formData.get('title') as string
   const description = formData.get('description') as string
   const image = formData.get('image') as string
+  const brand = formData.get('brand') as string
+  const category = formData.get('category') as string
  
   await supabase.from('products').insert({
     title,
     description,
     user_id: user.id,
     image,
-    
+    brand,
+    category
   }) // ADD the new task to the table
  
   revalidatePath('/dashboard')
