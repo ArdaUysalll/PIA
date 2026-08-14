@@ -1,12 +1,21 @@
-'use client'
+import { createClient } from '@/src/lib/server';
 import Link from 'next/link';
 
+const brandsList = ["Sandvik", "Mitutoyo", "Bosch", "İzeltaş"];
 
-  const brandsList = ["Sandvik", "Mitutoyo", "Bosch", "İzeltaş"];
+export default async function ProductCatalog() {
+  // Initialize Supabase server client
+  const supabase = await createClient();
 
+  // Fetch products directly from the database
+  const { data: products = [], error } = await supabase
+    .from('products')
+    .select('*')
+    .order('created_at', { ascending: false });
 
-
-export default function ProductCatalog() {
+  if (error) {
+    console.error("Error fetching products:", error);
+  }
 
   return (
     <div className="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-brand-orange selection:text-white min-h-screen">
@@ -35,23 +44,32 @@ export default function ProductCatalog() {
             <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-6 lg:sticky top-28">
               
               <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
-                <h3 className="font-heading font-bold text-brand-navy text-base flex items-center gap-2">
+                <h3 className="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
                   <i className="fa-solid fa-filter text-brand-orange text-sm"></i> Kategoriler
                 </h3>
               </div>
               
               <ul className="space-y-1.5 text-sm mb-8">
-                 There used to be a list here
+                <li>
+                  <button className="w-full text-left px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-brand-orange transition-colors font-medium">
+                    Tüm Kategoriler
+                  </button>
+                </li>
               </ul>
 
               <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
-                <h3 className="font-heading font-bold text-brand-navy text-base flex items-center gap-2">
+                <h3 className="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
                   <i className="fa-solid fa-tags text-brand-orange text-sm"></i> Markalar
                 </h3>
               </div>
 
               <div className="space-y-2.5">
-There was a div here
+                {brandsList.map((brand, index) => (
+                  <label key={index} className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer select-none">
+                    <input type="checkbox" className="rounded border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4" />
+                    <span>{brand}</span>
+                  </label>
+                ))}
               </div>
 
             </div>
@@ -62,9 +80,76 @@ There was a div here
             
             {/* Toolbar */}
             <div className="flex flex-col sm:flex-row justify-between items-center bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm mb-8 gap-4">
-There was another div here
+              <div className="text-sm text-slate-500 font-medium">
+                Toplam <span className="font-bold text-slate-800">{products.length}</span> ürün listeleniyor
+              </div>
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <label htmlFor="sort" className="text-sm text-slate-500 shrink-0 font-medium">Sırala:</label>
+                <select 
+                  id="sort" 
+                  className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm text-slate-700 focus:outline-none focus:border-brand-orange w-full sm:w-auto"
+                >
+                  <option value="featured">Önerilen Sıralama</option>
+                  <option value="newest">En Yeniler</option>
+                </select>
+              </div>
             </div>
 
+            {/* PRODUCT GRID ("HERE" SECTION) */}
+            {products.length === 0 ? (
+              <div className="bg-white rounded-3xl border border-slate-200/80 p-12 text-center">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-400 mb-3 text-xl">📦</div>
+                <p className="text-slate-700 font-semibold text-base">Henüz ürün bulunmuyor.</p>
+                <p className="text-slate-400 text-sm mt-1">Yönetim panelinden yeni öğeler ekleyebilirsiniz.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {products.map((product) => (
+                  <div key={product.id} className="bg-white rounded-3xl border border-slate-200/80 p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                    <div>
+                      {/* Product Image / Media */}
+                      <div className="relative bg-slate-100 rounded-2xl h-48 mb-4 overflow-hidden flex items-center justify-center">
+                        {product.image ? (
+                          <img src={product.image} alt={product.title} className="object-cover h-full w-full" />
+                        ) : (
+                          <div className="text-slate-300 text-sm font-medium">Görsel Yok</div>
+                        )}
+                        {product.completed && (
+                          <span className="absolute top-3 right-3 px-2.5 py-1 bg-rose-500 text-white text-xs font-semibold rounded-lg shadow-sm">
+                            Tükendi
+                          </span>
+                        )}
+                      </div>
+
+                      {product.brand && (
+                        <span className="text-xs font-semibold text-brand-orange uppercase tracking-wider">{product.brand}</span>
+                      )}
+                      
+                      <h3 className="font-heading font-bold text-slate-800 text-base mt-1 mb-1 line-clamp-1">{product.title}</h3>
+                      
+                      {product.description && (
+                        <p className="text-xs text-slate-500 line-clamp-2 mb-3">{product.description}</p>
+                      )}
+                    </div>
+
+                    <div className="flex items-center justify-between pt-4 border-t border-slate-100 mt-2">
+                      {product.category && (
+                        <span className="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-lg">
+                          {product.category}
+                        </span>
+                      )}
+                      
+                      <Link 
+                        href={`/products/${product.id}`}
+                        className="bg-brand-orange/10 hover:bg-brand-orange text-brand-orange hover:text-white px-4 py-2 rounded-xl text-sm font-bold transition-colors ml-auto"
+                      >
+                        İncele
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
             
             {/* Pagination Controls */}
             <div className="mt-12 flex justify-center">
