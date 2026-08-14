@@ -4,7 +4,6 @@ import CategoriesSection from "@/src/components/CategoriesSection";
 import FeaturedProductsSection from "@/src/components/FeaturedProducts";
 import QuoteSection from "@/src/components/QuoteSection";
 import BrandsSection from "@/src/components/BrandsSection";
-import { default as Footer } from "@/src/components/Footer";
 
 export default function Home() {
   return (
