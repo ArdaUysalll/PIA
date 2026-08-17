@@ -12,16 +12,22 @@ interface FilestackUploadProps {
 export default function FilestackUpload({ onUpload }: FilestackUploadProps) {
   const [imageUrl, setImageUrl] = useState('');
 
-  const handleUpload = async () => {
+const handleUpload = async () => {
     await client.picker({
       accept: ['image/*'],
       onUploadDone: (res) => {
-        const url = res.filesUploaded[0].url;
-        setImageUrl(url);
-        console.log('File uploaded:', url);
+        const rawUrl = res.filesUploaded[0].url;
+        
+        // Transform the Filestack URL to output WebP format automatically
+        // Example: https://cdn.filestackcontent.com/output=format:webp/HANDLE_ID
+        const urlParts = rawUrl.split('/');
+        const handle = urlParts[urlParts.length - 1];
+        const webpUrl = `https://cdn.filestackcontent.com/output=format:webp/${handle}`;
+
+        setImageUrl(webpUrl);
         
         if (onUpload) {
-          onUpload(url);
+          onUpload(webpUrl);
         }
       },
     }).open();
