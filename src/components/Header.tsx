@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation'
+import Image from "next/image";
 
 const NAVIGATION_LINKS = [
   { name: "Ana Sayfa", href: "/", isRoute: true, active: false },
@@ -76,7 +77,7 @@ NAVIGATION_LINKS.forEach((link) => {
             {/* LOGO AREA */}
             <Link href="/" className="flex items-center gap-3 group">
               <div className="bg-slate-900 text-white font-heading font-extrabold text-2xl px-3.5 py-2 rounded-xl shadow-md group-hover:shadow-orange-500/20 group-hover:scale-105 transition-all duration-300 flex items-center gap-1">
-                PİA
+                <div><Image src={"/pia_logo.webp"} fill sizes="100vw" alt=""/></div>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500 animate-pulse">
                   .
                 </span>
