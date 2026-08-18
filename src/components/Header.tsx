@@ -41,7 +41,6 @@ NAVIGATION_LINKS.forEach((link) => {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex items-center space-x-6">
             <span className="flex items-center gap-1.5">
-              <i className="fa-solid fa-location-dot text-orange-500 animate-bounce"></i> 
               <span>Çiğli / İzmir</span>
             </span>
             <span className="hidden md:flex items-center gap-1.5">
