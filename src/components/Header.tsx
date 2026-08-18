@@ -76,11 +76,8 @@ NAVIGATION_LINKS.forEach((link) => {
             
             {/* LOGO AREA */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="bg-slate-900 text-white font-heading font-extrabold text-2xl px-3.5 py-2 rounded-xl shadow-md group-hover:shadow-orange-500/20 group-hover:scale-105 transition-all duration-300 flex items-center gap-1">
-                <div><Image src={"/pia_logo.webp"} fill sizes="100vw" alt=""/></div>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500 animate-pulse">
-                  .
-                </span>
+              <div className="px-3.5 py-2 group-hover:shadow-orange-500/20 group-hover:scale-105 transition-all duration-300 flex items-center gap-1">
+                <Image src={"/pia_small.png"} height={200} width={200} alt="" className="rounded-md"/>
               </div>
               <div className="flex flex-col">
                 <span className="font-heading font-bold text-slate-900 tracking-tight text-lg leading-tight group-hover:text-orange-600 transition-colors">
@@ -91,24 +88,6 @@ NAVIGATION_LINKS.forEach((link) => {
                 </span>
               </div>
             </Link>
-
-            {/* SEARCH BAR */}
-            <div className="hidden lg:flex flex-1 max-w-md mx-6 group">
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  placeholder="Ürün adı, marka veya teknik kod ara..."
-                  className="w-full pl-4 pr-11 py-2.5 text-sm bg-slate-100/80 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/40 focus:bg-white focus:border-orange-500 transition-all duration-200 shadow-inner"
-                />
-                <button 
-                  type="button"
-                  aria-label="Ara"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-orange-500 transition-colors"
-                >
-                  <i className="fa-solid fa-magnifying-glass text-base"></i>
-                </button>
-              </div>
-            </div>
 
             {/* NAVIGATION LINKS */}
             <nav className="hidden md:flex items-center space-x-7 font-medium text-sm">
