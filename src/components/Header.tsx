@@ -76,7 +76,7 @@ NAVIGATION_LINKS.forEach((link) => {
             {/* LOGO AREA */}
             <Link href="/" className="flex items-center gap-3 group">
               <div className="px-3.5 py-2 group-hover:shadow-orange-500/20 group-hover:scale-105 transition-all duration-300 flex items-center gap-1">
-                <Image src={"/pia_small.png"} height={200} width={200} alt="" className="rounded-md"/>
+                <Image src={"/pia_small.png"} height={200} width={150} alt="" className="rounded-md pb-2"/>
               </div>
               <div className="flex flex-col">
                 <span className="font-heading font-bold text-slate-900 tracking-tight text-lg leading-tight group-hover:text-orange-600 transition-colors">

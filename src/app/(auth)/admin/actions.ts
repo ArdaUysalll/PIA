@@ -28,8 +28,6 @@ export async function addTask(formData: FormData) {
   revalidatePath('/dashboard')
   //can't  rerout inside component, so you revalidate
 }
- 
-
 
 
 export async function toggleTask(taskId: string, completed: boolean) {

@@ -65,12 +65,21 @@ export default async function ProductCatalog() {
               </div>
 
               <div className="space-y-2.5">
-                {brandsList.map((brand, index) => (
-                  <label key={index} className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer select-none">
-                    <input type="checkbox" className="rounded border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4" />
-                    <span>{brand}</span>
-                  </label>
-                ))}
+ {brandsList.map((brand) => (
+  <label
+    key={brand}
+    className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer select-none"
+  >
+    <input
+      type="radio"
+      name="brand"
+      value={brand}
+      className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
+    />
+    <span>{brand}</span>
+  </label>
+))}
+
               </div>
 
             </div>
@@ -95,8 +104,8 @@ export default async function ProductCatalog() {
                 </select>
               </div>
             </div>
-<ProductGrid/>
-           
+            
+            <ProductGrid/>      
             
             {/* Pagination Controls */}
             <div className="mt-12 flex justify-center">
