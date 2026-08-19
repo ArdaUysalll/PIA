@@ -1,22 +1,9 @@
-import { createClient } from '@/src/lib/server';
 import Link from 'next/link';
 import ProductGrid from './ProductGrid';
 
 const brandsList = ["Sandvik", "Mitutoyo", "Bosch", "İzeltaş"];
 
 export default async function ProductCatalog() {
-  // Initialize Supabase server client
-  const supabase = await createClient();
-
-  // Fetch products directly from the database
-  const { data: products = [], error } = await supabase
-    .from('products')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    console.error("Error fetching products:", error);
-  }
 
   return (
     <div className="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-brand-orange selection:text-white min-h-screen">
@@ -90,9 +77,6 @@ export default async function ProductCatalog() {
             
             {/* Toolbar */}
             <div className="flex flex-col sm:flex-row justify-between items-center bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm mb-8 gap-4">
-              <div className="text-sm text-slate-500 font-medium">
-                Toplam <span className="font-bold text-slate-800">{products.length}</span> ürün listeleniyor
-              </div>
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <label htmlFor="sort" className="text-sm text-slate-500 shrink-0 font-medium">Sırala:</label>
                 <select 
@@ -105,7 +89,7 @@ export default async function ProductCatalog() {
               </div>
             </div>
             
-            <ProductGrid/>      
+            <ProductGrid name={"Bosch"}/>      
             
             {/* Pagination Controls */}
             <div className="mt-12 flex justify-center">
