@@ -3,7 +3,9 @@ import ProductGrid from './ProductGrid';
 
 const brandsList = ["Sandvik", "Mitutoyo", "Bosch", "İzeltaş"];
 
-export default async function ProductCatalog() {
+export default async function ProductCatalog({ searchParams }) {
+  const resolvedSearchParams = await searchParams;
+  const selectedBrand = resolvedSearchParams?.brand || "";
 
   return (
     <div className="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-brand-orange selection:text-white min-h-screen">
@@ -39,9 +41,9 @@ export default async function ProductCatalog() {
               
               <ul className="space-y-1.5 text-sm mb-8">
                 <li>
-                  <button className="w-full text-left px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-brand-orange transition-colors font-medium">
+                  <Link href="/urunler" className="w-full text-left block px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-brand-orange transition-colors font-medium">
                     Tüm Kategoriler
-                  </button>
+                  </Link>
                 </li>
               </ul>
 
@@ -51,23 +53,31 @@ export default async function ProductCatalog() {
                 </h3>
               </div>
 
-              <div className="space-y-2.5">
- {brandsList.map((brand) => (
-  <label
-    key={brand}
-    className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer select-none"
-  >
-    <input
-      type="radio"
-      name="brand"
-      value={brand}
-      className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
-    />
-    <span>{brand}</span>
-  </label>
-))}
-
-              </div>
+              {/* Native GET Form to trigger server re-fetch */}
+              <form method="GET" className="space-y-2.5">
+                {brandsList.map((brand) => (
+                  <label
+                    key={brand}
+                    className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer select-none"
+                  >
+                    <input
+                      type="radio"
+                      name="brand"
+                      value={brand}
+                      defaultChecked={selectedBrand === brand}
+                      className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
+                    />
+                    <span>{brand}</span>
+                  </label>
+                ))}
+                
+                <button 
+                  type="submit" 
+                  className="mt-4 w-full bg-slate-900 hover:bg-brand-orange text-white text-sm font-medium py-2.5 rounded-xl transition-colors shadow-sm"
+                >
+                  Filtrele
+                </button>
+              </form>
 
             </div>
           </aside>
@@ -78,18 +88,13 @@ export default async function ProductCatalog() {
             {/* Toolbar */}
             <div className="flex flex-col sm:flex-row justify-between items-center bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm mb-8 gap-4">
               <div className="flex items-center gap-3 w-full sm:w-auto">
-                <label htmlFor="sort" className="text-sm text-slate-500 shrink-0 font-medium">Sırala:</label>
-                <select 
-                  id="sort" 
-                  className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm text-slate-700 focus:outline-none focus:border-brand-orange w-full sm:w-auto"
-                >
-                  <option value="featured">Önerilen Sıralama</option>
-                  <option value="newest">En Yeniler</option>
-                </select>
+                <span className="text-sm text-slate-500 font-medium">Aktif Marka:</span>
+                <span className="text-sm font-bold text-brand-orange">{selectedBrand || "Tümü"}</span>
               </div>
             </div>
             
-            <ProductGrid name={"Bosch"}/>      
+            {/* Pass the brand down to ProductGrid */}
+            <ProductGrid name={selectedBrand} />      
             
             {/* Pagination Controls */}
             <div className="mt-12 flex justify-center">
