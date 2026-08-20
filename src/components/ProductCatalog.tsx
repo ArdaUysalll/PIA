@@ -1,7 +1,21 @@
 import Link from 'next/link';
 import ProductGrid from './ProductGrid';
+import { createClient } from '@/src/lib/server';
 
-const brandsList = ["Sandvik", "Mitutoyo", "Bosch", "İzeltaş"];
+const supabase = await createClient();
+
+let query = supabase
+  .from('brand_unique')
+  .select('*')
+  
+
+const { data, error } = await query;
+
+// 1. Map the array of objects to a string array
+const brandsList = data ? data.map((item) => item.brand) : [];
+
+// Optional: If you only want unique brand names (removing duplicates)
+// const uniqueBrands = [...new Set(data.map((item) => item.brand))];
 
 export default async function ProductCatalog({ searchParams }) {
   const resolvedSearchParams = await searchParams;
