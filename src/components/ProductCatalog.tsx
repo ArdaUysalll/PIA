@@ -8,14 +8,13 @@ let query = supabase
   .from('brand_unique')
   .select('*')
   
+let query2 = supabase
+  .from('category_unique')
+  .select('*')
 
 const { data, error } = await query;
-
-// 1. Map the array of objects to a string array
 const brandsList = data ? data.map((item) => item.brand) : [];
-
-// Optional: If you only want unique brand names (removing duplicates)
-// const uniqueBrands = [...new Set(data.map((item) => item.brand))];
+const categoryList = data ? data.map((item) => item.category) : [];
 
 export default async function ProductCatalog({ searchParams }) {
   const resolvedSearchParams = await searchParams;
@@ -52,23 +51,40 @@ export default async function ProductCatalog({ searchParams }) {
                   <i className="fa-solid fa-filter text-brand-orange text-sm"></i> Kategoriler
                 </h3>
               </div>
-              
-              <ul className="space-y-1.5 text-sm mb-8">
+              {/*                 <ul className="space-y-1.5 text-sm mb-8">
                 <li>
                   <Link href="/urunler" className="w-full text-left block px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-brand-orange transition-colors font-medium">
                     Tüm Kategoriler
                   </Link>
+                  {categoryList.map((category) => (
+                  <label
+                    key={category}
+                    className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer select-none"
+                  >
+                    <input
+                      type="radio"
+                      name="brand"
+                      value={category}
+                      defaultChecked={selectedBrand === category}
+                      className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
+                    />
+                    <span>{category}</span>
+                  </label>
+                ))}
+                
                 </li>
-              </ul>
+              </ul> */}
+
+
+              {/* Native GET Form to trigger server re-fetch */}
+              <form method="GET" className="space-y-2.5">
+
 
               <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
                 <h3 className="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
                   <i className="fa-solid fa-tags text-brand-orange text-sm"></i> Markalar
                 </h3>
               </div>
-
-              {/* Native GET Form to trigger server re-fetch */}
-              <form method="GET" className="space-y-2.5">
                 {brandsList.map((brand) => (
                   <label
                     key={brand}
