@@ -55,7 +55,7 @@ export default async function ProductGrid({ name, category }) { // Destructure '
                 </div>
 
                 {product.brand && (
-                  <span className="text-xs font-semibold text-brand-orange uppercase tracking-wider">{product.brand}</span>
+                  <span className="text-xs font-semibold text-orange-400 uppercase tracking-wider">{product.brand}</span>
                 )}
                 
                 <h3 className="font-heading font-bold text-slate-800 text-base mt-1 mb-1 line-clamp-1">{product.title}</h3>

@@ -6,7 +6,7 @@ import BrandsSection from "@/src/components/BrandsSection";
 
 export default function Home() {
   return (
-    <div className="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-brand-orange selection:text-white">
+    <div className="font-sans bg-slate-50 text-slate-800 antialiased">
       <main>
         <HeroSection />
         <CategoriesSection />

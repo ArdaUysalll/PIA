@@ -35,7 +35,7 @@ export default async function ProductCatalog({ searchParams }) {
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
               <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
             </svg>
-            <span className="text-brand-orange">Ürünler</span>
+            <span className="text-orange-400">Ürünler</span>
           </div>
         </div>
       </section>
@@ -55,7 +55,7 @@ export default async function ProductCatalog({ searchParams }) {
                 <div>
                   <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
                     <h3 className="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
-                      <i className="fa-solid fa-filter text-brand-orange text-sm"></i> Kategoriler
+                      <i className="fa-solid fa-filter text-orange-400 text-sm"></i> Kategoriler
                     </h3>
                   </div>
                   <div className="space-y-2.5 max-h-48 overflow-y-auto pr-1">
@@ -65,7 +65,7 @@ export default async function ProductCatalog({ searchParams }) {
                         name="category"
                         value=""
                         defaultChecked={!selectedCategory}
-                        className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
+                        className="border-slate-300 text-orange-400 focus:ring-brand-orange w-4 h-4"
                       />
                       <span>Tüm Kategoriler</span>
                     </label>
@@ -79,7 +79,7 @@ export default async function ProductCatalog({ searchParams }) {
                           name="category"
                           value={category}
                           defaultChecked={selectedCategory === category}
-                          className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
+                          className="border-slate-300 text-orange-400 focus:ring-brand-orange w-4 h-4"
                         />
                         <span>{category}</span>
                       </label>
@@ -91,7 +91,7 @@ export default async function ProductCatalog({ searchParams }) {
                 <div>
                   <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
                     <h3 className="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
-                      <i className="fa-solid fa-tags text-brand-orange text-sm"></i> Markalar
+                      <i className="fa-solid fa-tags text-orange-400 text-sm"></i> Markalar
                     </h3>
                   </div>
                   <div className="space-y-2.5 max-h-48 overflow-y-auto pr-1">
@@ -101,7 +101,7 @@ export default async function ProductCatalog({ searchParams }) {
                         name="brand"
                         value=""
                         defaultChecked={!selectedBrand}
-                        className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
+                        className="border-slate-300 text-orange-400 focus:ring-brand-orange w-4 h-4"
                       />
                       <span>Tüm Markalar</span>
                     </label>
@@ -115,7 +115,7 @@ export default async function ProductCatalog({ searchParams }) {
                           name="brand"
                           value={brand}
                           defaultChecked={selectedBrand === brand}
-                          className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
+                          className="border-slate-300 text-orange-400 focus:ring-brand-orange w-4 h-4"
                         />
                         <span>{brand}</span>
                       </label>
@@ -142,11 +142,11 @@ export default async function ProductCatalog({ searchParams }) {
               <div className="flex items-center gap-6 w-full sm:w-auto">
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-slate-500 font-medium">Aktif Kategori:</span>
-                  <span className="text-sm font-bold text-brand-orange">{selectedCategory || "Tümü"}</span>
+                  <span className="text-sm font-bold text-orange-400">{selectedCategory || "Tümü"}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-slate-500 font-medium">Aktif Marka:</span>
-                  <span className="text-sm font-bold text-brand-orange">{selectedBrand || "Tümü"}</span>
+                  <span className="text-sm font-bold text-orange-400">{selectedBrand || "Tümü"}</span>
                 </div>
               </div>
             </div>
@@ -161,7 +161,7 @@ export default async function ProductCatalog({ searchParams }) {
                   <i className="fa-solid fa-chevron-left text-xs"></i>
                 </button>
                 <button className="w-11 h-11 rounded-2xl bg-brand-orange text-white font-bold flex items-center justify-center shadow-md shadow-brand-orange/25">1</button>
-                <button className="w-11 h-11 rounded-2xl bg-white border border-slate-200 text-slate-600 hover:text-brand-orange hover:border-brand-orange font-medium flex items-center justify-center shadow-xs transition-colors">
+                <button className="w-11 h-11 rounded-2xl bg-white border border-slate-200 text-slate-600 hover:text-orange-400 hover:border-brand-orange font-medium flex items-center justify-center shadow-xs transition-colors">
                   <i className="fa-solid fa-chevron-right text-xs"></i>
                 </button>
               </nav>

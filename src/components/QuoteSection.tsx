@@ -59,7 +59,7 @@ export default function QuoteSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10 p-8 sm:p-12">
           <div className="text-center max-w-xl mx-auto mb-10">
-            <span className="text-brand-orange font-bold text-xs uppercase tracking-widest bg-brand-orange/10 px-3 py-1 rounded-full">
+            <span className="text-orange-400 font-bold text-xs uppercase tracking-widest bg-brand-orange/10 px-3 py-1 rounded-full">
               B2B Satın Alma Kolaylığı
             </span>
             <h2 className="font-heading text-3xl font-extrabold text-white mt-4">
