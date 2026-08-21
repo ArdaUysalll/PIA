@@ -1,10 +1,10 @@
 import { createClient } from '@/src/lib/server';
 
-export default async function ProductGrid({ name }) { // Destructure 'name' directly from props
+export default async function ProductGrid({ name, category }) { // Destructure 'name' and 'category' from props
   // Initialize Supabase server client
   const supabase = await createClient();
 
-  // Fetch products filtered by brand using Supabase's .eq() method
+  // Base query fetching products ordered by creation date
   let query = supabase
     .from('products')
     .select('*')
@@ -13,6 +13,11 @@ export default async function ProductGrid({ name }) { // Destructure 'name' dire
   // If a brand name is provided, filter by it
   if (name) {
     query = query.eq('brand', name);
+  }
+
+  // If a category is provided, filter by it
+  if (category) {
+    query = query.eq('category', category);
   }
 
   const { data: products = [], error } = await query;

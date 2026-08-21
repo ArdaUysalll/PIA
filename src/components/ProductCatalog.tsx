@@ -2,23 +2,25 @@ import Link from 'next/link';
 import ProductGrid from './ProductGrid';
 import { createClient } from '@/src/lib/server';
 
-const supabase = await createClient();
-
-let query = supabase
-  .from('brand_unique')
-  .select('*')
-  
-let query2 = supabase
-  .from('category_unique')
-  .select('*')
-
-const { data, error } = await query;
-const brandsList = data ? data.map((item) => item.brand) : [];
-const categoryList = data ? data.map((item) => item.category) : [];
-
 export default async function ProductCatalog({ searchParams }) {
   const resolvedSearchParams = await searchParams;
   const selectedBrand = resolvedSearchParams?.brand || "";
+  const selectedCategory = resolvedSearchParams?.category || "";
+
+  // Initialize Supabase server client
+  const supabase = await createClient();
+
+  // Fetch unique brands
+  const { data: brandData } = await supabase
+    .from('brand_unique')
+    .select('*');
+  const brandsList = brandData ? brandData.map((item) => item.brand).filter(Boolean) : [];
+
+  // Fetch unique categories
+  const { data: categoryData } = await supabase
+    .from('category_unique')
+    .select('*');
+  const categoryList = categoryData ? categoryData.map((item) => item.category).filter(Boolean) : [];
 
   return (
     <div className="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-brand-orange selection:text-white min-h-screen">
@@ -46,60 +48,80 @@ export default async function ProductCatalog({ searchParams }) {
           <aside className="w-full lg:w-72 shrink-0">
             <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-6 lg:sticky top-28">
               
-              <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
-                <h3 className="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
-                  <i className="fa-solid fa-filter text-brand-orange text-sm"></i> Kategoriler
-                </h3>
-              </div>
-              {/*                 <ul className="space-y-1.5 text-sm mb-8">
-                <li>
-                  <Link href="/urunler" className="w-full text-left block px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-brand-orange transition-colors font-medium">
-                    Tüm Kategoriler
-                  </Link>
-                  {categoryList.map((category) => (
-                  <label
-                    key={category}
-                    className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer select-none"
-                  >
-                    <input
-                      type="radio"
-                      name="brand"
-                      value={category}
-                      defaultChecked={selectedBrand === category}
-                      className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
-                    />
-                    <span>{category}</span>
-                  </label>
-                ))}
-                
-                </li>
-              </ul> */}
-
-
               {/* Native GET Form to trigger server re-fetch */}
-              <form method="GET" className="space-y-2.5">
+              <form method="GET" className="space-y-6">
 
+                {/* Categories Section */}
+                <div>
+                  <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                    <h3 className="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
+                      <i className="fa-solid fa-filter text-brand-orange text-sm"></i> Kategoriler
+                    </h3>
+                  </div>
+                  <div className="space-y-2.5 max-h-48 overflow-y-auto pr-1">
+                    <label className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer select-none">
+                      <input
+                        type="radio"
+                        name="category"
+                        value=""
+                        defaultChecked={!selectedCategory}
+                        className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
+                      />
+                      <span>Tüm Kategoriler</span>
+                    </label>
+                    {categoryList.map((category) => (
+                      <label
+                        key={category}
+                        className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer select-none"
+                      >
+                        <input
+                          type="radio"
+                          name="category"
+                          value={category}
+                          defaultChecked={selectedCategory === category}
+                          className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
+                        />
+                        <span>{category}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
 
-              <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
-                <h3 className="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
-                  <i className="fa-solid fa-tags text-brand-orange text-sm"></i> Markalar
-                </h3>
-              </div>
-                {brandsList.map((brand) => (
-                  <label
-                    key={brand}
-                    className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer select-none"
-                  >
-                    <input
-                      type="radio"
-                      name="brand"
-                      value={brand}
-                      defaultChecked={selectedBrand === brand}
-                      className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
-                    />
-                    <span>{brand}</span>
-                  </label>
-                ))}
+                {/* Brands Section */}
+                <div>
+                  <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                    <h3 className="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
+                      <i className="fa-solid fa-tags text-brand-orange text-sm"></i> Markalar
+                    </h3>
+                  </div>
+                  <div className="space-y-2.5 max-h-48 overflow-y-auto pr-1">
+                    <label className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer select-none">
+                      <input
+                        type="radio"
+                        name="brand"
+                        value=""
+                        defaultChecked={!selectedBrand}
+                        className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
+                      />
+                      <span>Tüm Markalar</span>
+                    </label>
+                    {brandsList.map((brand) => (
+                      <label
+                        key={brand}
+                        className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer select-none"
+                      >
+                        <input
+                          type="radio"
+                          name="brand"
+                          value={brand}
+                          defaultChecked={selectedBrand === brand}
+                          className="border-slate-300 text-brand-orange focus:ring-brand-orange w-4 h-4"
+                        />
+                        <span>{brand}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
                 
                 <button 
                   type="submit" 
@@ -117,14 +139,20 @@ export default async function ProductCatalog({ searchParams }) {
             
             {/* Toolbar */}
             <div className="flex flex-col sm:flex-row justify-between items-center bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm mb-8 gap-4">
-              <div className="flex items-center gap-3 w-full sm:w-auto">
-                <span className="text-sm text-slate-500 font-medium">Aktif Marka:</span>
-                <span className="text-sm font-bold text-brand-orange">{selectedBrand || "Tümü"}</span>
+              <div className="flex items-center gap-6 w-full sm:w-auto">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-slate-500 font-medium">Aktif Kategori:</span>
+                  <span className="text-sm font-bold text-brand-orange">{selectedCategory || "Tümü"}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-slate-500 font-medium">Aktif Marka:</span>
+                  <span className="text-sm font-bold text-brand-orange">{selectedBrand || "Tümü"}</span>
+                </div>
               </div>
             </div>
             
-            {/* Pass the brand down to ProductGrid */}
-            <ProductGrid name={selectedBrand} />      
+            {/* Pass both brand (name) and category down to ProductGrid */}
+            <ProductGrid name={selectedBrand} category={selectedCategory} />      
             
             {/* Pagination Controls */}
             <div className="mt-12 flex justify-center">
