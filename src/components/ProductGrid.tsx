@@ -1,6 +1,6 @@
 import { createClient } from '@/src/lib/server';
 
-export default async function ProductGrid({ name, category }) { // Destructure 'name' and 'category' from props
+export default async function ProductGrid({ name, category, limit }) { // Added 'limit' prop
   // Initialize Supabase server client
   const supabase = await createClient();
 
@@ -18,6 +18,11 @@ export default async function ProductGrid({ name, category }) { // Destructure '
   // If a category is provided, filter by it
   if (category) {
     query = query.eq('category', category);
+  }
+
+  // If a limit is provided, restrict the number of rows returned
+  if (limit) {
+    query = query.limit(limit);
   }
 
   const { data: products = [], error } = await query;

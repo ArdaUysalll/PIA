@@ -32,7 +32,7 @@ export default function FeaturedProducts() {
           </Link>
         </div>
 
-          <ProductGrid/>
+          <ProductGrid limit={3}/>
 
         <div className="mt-8 text-center sm:hidden">
           <Link href="/urunler" className="inline-flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500 font-bold hover:opacity-80 transition-opacity group">
